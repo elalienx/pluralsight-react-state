@@ -1,12 +1,13 @@
-# Quick Start
+# Installation
 
-Install the latest Node LTS from [nodejs.org](https://nodejs.org/).
+Pre-requisites:
 
-Then, run the following commands in your terminal:
+1. Node LTS (20+) [link](https://nodejs.org/en)
+1. PNPM [link](https://pnpm.io)
 
 ```bash
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
 This will start the app and the mock API server on [http://localhost:3000](http://localhost:3000).
