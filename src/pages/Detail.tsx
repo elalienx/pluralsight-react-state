@@ -1,6 +1,6 @@
 // Node modules
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 // Project files
@@ -13,6 +13,7 @@ export default function Detail() {
   // Global state
   const { addItem } = useShoeStore();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // Local state
   const [sku, setSku] = useState("");
@@ -47,6 +48,7 @@ export default function Detail() {
 
     addItem(sku, id);
     toast("Added to cart", { icon: "🛒" });
+    navigate("/shoes");
   }
 
   // Safeguards
