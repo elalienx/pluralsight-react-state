@@ -42,16 +42,21 @@ export default function Detail() {
   }, [id]);
 
   function onAddToCart(id: string) {
+    // Safeguard
     if (!sku) return alert("Select size.");
 
-    setCart((cart) => {
-      const itemInCart = cart.find((i) => i.sku === sku);
+    const newItem = { id: parseInt(id), sku, quantity: 1 };
 
-      return itemInCart
-        ? cart.map((i) =>
-            i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i
-          )
-        : [...cart, { id: parseInt(id), sku, quantity: 1 }];
+    setCart((cart) => {
+      const itemExistInCart = cart.find((item) => item.sku === sku);
+
+      if (itemExistInCart) {
+        return cart.map((item) =>
+          item.sku === sku ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+
+      return [...cart, newItem];
     });
 
     toast("Added to cart", { icon: "🛒" });
