@@ -3,12 +3,22 @@ import { Link, NavLink } from "react-router-dom";
 
 // Project files
 import { useCart } from "state/cartContext";
-import { useUser } from "state/userContext";
+import useShoeStore from "store/shoeStore";
+import type User from "types/User";
 
 export default function Header() {
   // Global state
   const { cart } = useCart();
-  const { user, setUser } = useUser();
+  const { user, logIn, logOut } = useShoeStore();
+
+  // Properties
+  const fakeUser: User = { id: 1, email: "cory@example.com" };
+  const itemsInCart = cart.reduce((prev, acc) => prev + acc.quantity, 0);
+
+  // Components
+  const AccountLink = <NavLink to="/account">Account</NavLink>;
+  const LogInButton = <button onClick={() => logIn(fakeUser)}>Log in</button>;
+  const LogOutButton = <button onClick={() => logOut()}>Log out</button>;
 
   return (
     <header>
@@ -23,30 +33,10 @@ export default function Header() {
             <NavLink to="/shoes">Shoes</NavLink>
           </li>
           <li>
-            <NavLink to="/cart">
-              Cart (
-              {cart.reduce((prev, acc) => {
-                return prev + acc.quantity;
-              }, 0)}
-              )
-            </NavLink>
+            <NavLink to="/cart">Cart ({itemsInCart})</NavLink>
           </li>
-          <li>
-            {user ? (
-              <NavLink to="/account">Account</NavLink>
-            ) : (
-              <button
-                onClick={() => setUser({ id: 1, email: "cory@example.com" })}
-              >
-                Log in
-              </button>
-            )}
-          </li>
-          {user && (
-            <li>
-              <button onClick={() => setUser(null)}>Log out</button>
-            </li>
-          )}
+          <li>{user ? AccountLink : LogInButton}</li>
+          {user && <li>{LogOutButton}</li>}
         </ul>
       </nav>
     </header>

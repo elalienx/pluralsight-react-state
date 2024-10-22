@@ -1,9 +1,9 @@
 // Project files
-import { useUser } from "state/userContext";
+import useShoeStore from "store/shoeStore";
 
 export function Account() {
   // Global state
-  const { user } = useUser();
+  const { user } = useShoeStore();
 
   return (
     <>
