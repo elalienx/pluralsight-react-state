@@ -4,6 +4,7 @@ import { create } from "zustand";
 import addItem from "./actions/addItem";
 import type User from "types/User";
 import type CartItem from "types/CartItem";
+import removeItem from "./actions/removeItem";
 
 interface State {
   cart: CartItem[];
@@ -13,6 +14,7 @@ interface State {
 interface Action {
   // Cart
   addItem: (sku: string, id: string) => void;
+  removeItem: (sku: string, quantity: number) => void;
   emptyCart: () => void;
 
   // User
@@ -31,9 +33,14 @@ const useShoeStore = create<State & Action>((set) => ({
   // Action
   addItem: (sku, id) =>
     set((state) => ({ cart: addItem(state.cart, sku, id) })),
+
+  removeItem: (sku, quantity) =>
+    set((state) => ({ cart: removeItem(state.cart, sku, quantity) })),
+
   emptyCart: () => set({ cart: [] }),
 
   logIn: (user) => set({ user }),
+
   logOut: () => set({ user: null }),
 }));
 
