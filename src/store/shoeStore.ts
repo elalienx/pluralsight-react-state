@@ -6,7 +6,7 @@ import { persist } from "zustand/middleware";
 import type Actions from "types/StoreActions";
 import type State from "types/StoreState";
 import addItem from "./actions/addItem";
-import updateItemQt from "./actions/removeItem";
+import updateItem from "./actions/updateItemQuantity";
 
 const persistOptions = { name: "zustand-store" };
 const useShoeStore = create<State & Actions>()(
@@ -21,7 +21,7 @@ const useShoeStore = create<State & Actions>()(
         set((state) => ({ cart: addItem(state.cart, sku, id) })),
 
       updateItemQuantity: (sku, quantity) =>
-        set((state) => ({ cart: updateItemQt(state.cart, sku, quantity) })),
+        set((state) => ({ cart: updateItem(state.cart, sku, quantity) })),
 
       emptyCart: () => set({ cart: [] }),
 
