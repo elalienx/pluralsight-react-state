@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 // Project files
 import Spinner from "components/Spinner";
 import { useCart } from "context/cartContext";
-import { CartItem, Product } from "types/types";
+import type CartItem from "types/CartItem";
+import type Product from "types/Product";
 
 export default function Cart() {
   const { cart, setCart } = useCart();

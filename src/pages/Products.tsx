@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 // Project files
 import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
-import { Product } from "types/types";
+import type Product from "types/Product";
 
 export default function Products() {
   const [size, setSize] = useState("");

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import Spinner from "components/Spinner";
 import { useCart } from "context/cartContext";
 import PageNotFound from "pages/PageNotFound";
-import { Product } from "types/types";
+import type Product from "types/Product";
 
 export default function Detail() {
   const { setCart } = useCart();

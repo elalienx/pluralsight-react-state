@@ -2,7 +2,7 @@
 import React, { useEffect, useContext, useState } from "react";
 
 // Project files
-import { CartItem } from "types/types";
+import type CartItem from "types/CartItem";
 
 export const CartContext = React.createContext<CartContextType | null>(null);
 

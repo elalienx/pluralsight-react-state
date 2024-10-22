@@ -2,7 +2,7 @@
 import React, { useContext, useState } from "react";
 
 // Project files
-import { User } from "types/types";
+import type User from "types/User";
 
 export const UserContext = React.createContext<UserContextType | null>(null);
 

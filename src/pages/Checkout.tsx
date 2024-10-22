@@ -4,7 +4,7 @@ import { useState } from "react";
 // Project files
 import { useCart } from "context/cartContext";
 import { saveShippingAddress } from "services/shippingService";
-import { ShippingAddress } from "types/types";
+import type ShippingAddress from "types/ShippingAddress";
 
 type Status = "Idle" | "Submitted" | "Submitting" | "Completed";
 
