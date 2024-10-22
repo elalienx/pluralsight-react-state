@@ -1,11 +1,14 @@
+// Node modules
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Routes from "./Routes";
-import { CartProvider } from "./context/cartContext";
-import "./main.css";
 import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
-import { UserProvider } from "./context/userContext";
+
+// Project files
+import Routes from "./Routes";
+import { CartProvider } from "context/cartContext";
+import { UserProvider } from "context/userContext";
+import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

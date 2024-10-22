@@ -7,6 +7,7 @@
     "skipLibCheck": true,
     "allowJs": false,
     "noUncheckedIndexedAccess": true,
+    "baseUrl": "src",
 
     /* Bundler mode */
     "moduleResolution": "bundler",

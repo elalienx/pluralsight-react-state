@@ -1,5 +1,8 @@
+// Node modules
 import React, { useContext, useState } from "react";
-import { User } from "../types/types";
+
+// Project files
+import { User } from "types/types";
 
 export const UserContext = React.createContext<UserContextType | null>(null);
 

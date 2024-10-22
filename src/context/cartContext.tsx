@@ -1,5 +1,8 @@
+// Node modules
 import React, { useEffect, useContext, useState } from "react";
-import { CartItem } from "../types/types";
+
+// Project files
+import { CartItem } from "types/types";
 
 export const CartContext = React.createContext<CartContextType | null>(null);
 

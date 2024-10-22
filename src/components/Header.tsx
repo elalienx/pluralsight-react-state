@@ -1,8 +1,12 @@
+// Node modules
 import { Link, NavLink } from "react-router-dom";
-import { useCart } from "./context/cartContext";
-import { useUser } from "./context/userContext";
+
+// Project files
+import { useCart } from "context/cartContext";
+import { useUser } from "context/userContext";
 
 export default function Header() {
+  // Global state
   const { cart } = useCart();
   const { user, setUser } = useUser();
 

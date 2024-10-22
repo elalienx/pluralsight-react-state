@@ -1,6 +1,9 @@
+// Node modules
 import { ErrorBoundary } from "react-error-boundary";
-import Header from "./components/Header";
 import { Outlet } from "react-router-dom";
+
+// Project files
+import Header from "components/Header";
 
 export function Layout() {
   return (

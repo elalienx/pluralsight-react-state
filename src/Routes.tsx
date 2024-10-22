@@ -1,17 +1,20 @@
-import "./App.css";
-import Products from "./pages/Products.tsx";
+// Node modules
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Detail from "./pages/Detail.tsx";
-import Cart from "./pages/Cart.tsx";
-import Checkout from "./pages/Checkout.tsx";
-import Faker from "./Faker.tsx";
+
+// Project files
+import Faker from "components/Faker.tsx";
+import Products from "pages/Products.tsx";
+import Detail from "pages/Detail.tsx";
+import Cart from "pages/Cart.tsx";
+import Checkout from "pages/Checkout.tsx";
+import { Account } from "pages/Account.tsx";
 import { Layout } from "./Layout.tsx";
-import { Account } from "./pages/Account.tsx";
+import "./App.css";
 
 export default function App() {
   const router = createBrowserRouter(

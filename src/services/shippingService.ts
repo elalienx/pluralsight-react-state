@@ -1,4 +1,5 @@
-import { ShippingAddress } from "../types/types";
+// Project files
+import { ShippingAddress } from "types/types";
 
 const baseUrl = import.meta.env.VITE_APP_API_BASE_URL;
 
