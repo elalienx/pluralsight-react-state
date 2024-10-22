@@ -1,47 +1,36 @@
+// Node modules
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 // Project files
-import type User from "types/User";
-import type CartItem from "types/CartItem";
+import type Actions from "types/StoreActions";
+import type State from "types/StoreState";
 import addItem from "./actions/addItem";
-import updateItemQuantity from "./actions/removeItem";
+import updateItemQt from "./actions/removeItem";
 
-interface State {
-  cart: CartItem[];
-  user: User | null;
-}
+const persistOptions = { name: "zustand-store" };
+const useShoeStore = create<State & Actions>()(
+  persist(
+    (set) => ({
+      // State
+      cart: [],
+      user: null,
 
-interface Action {
-  // Cart
-  addItem: (sku: string, id: string) => void;
-  updateItemQuantity: (sku: string, quantity: number) => void;
-  emptyCart: () => void;
+      // Actions
+      addItem: (sku, id) =>
+        set((state) => ({ cart: addItem(state.cart, sku, id) })),
 
-  // User
-  logIn: (user: User) => void;
-  logOut: () => void;
-}
+      updateItemQuantity: (sku, quantity) =>
+        set((state) => ({ cart: updateItemQt(state.cart, sku, quantity) })),
 
-/**
- * Refactor make cart actions testable
- */
-const useShoeStore = create<State & Action>((set) => ({
-  // State
-  cart: [],
-  user: null,
+      emptyCart: () => set({ cart: [] }),
 
-  // Action
-  addItem: (sku, id) =>
-    set((state) => ({ cart: addItem(state.cart, sku, id) })),
+      logIn: (user) => set({ user }),
 
-  updateItemQuantity: (sku, quantity) =>
-    set((state) => ({ cart: updateItemQuantity(state.cart, sku, quantity) })),
-
-  emptyCart: () => set({ cart: [] }),
-
-  logIn: (user) => set({ user }),
-
-  logOut: () => set({ user: null }),
-}));
+      logOut: () => set({ user: null }),
+    }),
+    persistOptions
+  )
+);
 
 export default useShoeStore;
