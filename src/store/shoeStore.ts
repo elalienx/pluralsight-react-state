@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 // Project files
+import addToCart from "./actions/addToCart";
 import type User from "types/User";
 import type CartItem from "types/CartItem";
 
@@ -11,7 +12,7 @@ interface State {
 
 interface Action {
   // Cart
-  addItem: (item: CartItem) => void;
+  addItem: (sku: string, id: string) => void;
   emptyCart: () => void;
 
   // User
@@ -28,7 +29,7 @@ const useShoeStore = create<State & Action>((set) => ({
   user: null,
 
   // Action
-  addItem: (item) => set((state) => ({ cart: [...state.cart, item] })),
+  addItem: (sku, id) => set((state) => ({ cart: addToCart(state.cart, sku, id) })),
   emptyCart: () => set({ cart: [] }),
 
   logIn: (user) => set({ user }),

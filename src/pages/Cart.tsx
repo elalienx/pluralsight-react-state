@@ -65,7 +65,11 @@ export default function Cart() {
           if (!product) throw new Error("Product not found");
 
           return (
-            <ItemCart key={cartItem.id} cartItem={cartItem} product={product} />
+            <ItemCart
+              key={cartItem.sku}
+              cartItem={cartItem}
+              product={product}
+            />
           );
         })}
       </ul>

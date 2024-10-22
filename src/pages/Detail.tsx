@@ -8,6 +8,7 @@ import Spinner from "components/Spinner";
 import { useCart } from "state/cartContext";
 import PageNotFound from "pages/PageNotFound";
 import type Product from "types/Product";
+import addToCart from "store/actions/addToCart";
 
 export default function Detail() {
   // Global state
@@ -45,20 +46,7 @@ export default function Detail() {
     // Safeguard
     if (!sku) return alert("Select size.");
 
-    const newItem = { id: parseInt(id), sku, quantity: 1 };
-
-    setCart((cart) => {
-      const itemExistInCart = cart.find((item) => item.sku === sku);
-
-      if (itemExistInCart) {
-        return cart.map((item) =>
-          item.sku === sku ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-
-      return [...cart, newItem];
-    });
-
+    setCart((cart) => addToCart(cart, sku, id));
     toast("Added to cart", { icon: "🛒" });
   }
 
