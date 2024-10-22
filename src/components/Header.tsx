@@ -2,8 +2,8 @@
 import { Link, NavLink } from "react-router-dom";
 
 // Project files
-import { useCart } from "context/cartContext";
-import { useUser } from "context/userContext";
+import { useCart } from "state/cartContext";
+import { useUser } from "state/userContext";
 
 export default function Header() {
   // Global state

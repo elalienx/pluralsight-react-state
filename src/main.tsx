@@ -6,8 +6,8 @@ import { Toaster } from "react-hot-toast";
 
 // Project files
 import Routes from "./Routes";
-import { CartProvider } from "context/cartContext";
-import { UserProvider } from "context/userContext";
+import { CartProvider } from "state/cartContext";
+import { UserProvider } from "state/userContext";
 import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

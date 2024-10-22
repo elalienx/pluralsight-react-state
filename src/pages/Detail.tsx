@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 // Project files
 import Spinner from "components/Spinner";
-import { useCart } from "context/cartContext";
+import { useCart } from "state/cartContext";
 import PageNotFound from "pages/PageNotFound";
 import type Product from "types/Product";
 

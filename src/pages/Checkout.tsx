@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // Project files
-import { useCart } from "context/cartContext";
+import { useCart } from "state/cartContext";
 import { saveShippingAddress } from "services/shippingService";
 import type ShippingAddress from "types/ShippingAddress";
 

@@ -1,5 +1,5 @@
 // Project files
-import { useUser } from "context/userContext";
+import { useUser } from "state/userContext";
 
 export function Account() {
   const { user } = useUser();
