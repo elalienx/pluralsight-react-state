@@ -16,7 +16,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   const { name, image, skus, price } = product;
 
   // Global state
-  const { removeItem } = useShoeStore();
+  const updateItemQuantity = useShoeStore((state) => state.updateItemQuantity);
 
   // Properties
   const matchingSku = skus.find((s) => s.sku === sku);
@@ -28,7 +28,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
     const quantity = parseInt(event.target.value);
 
-    removeItem(sku, quantity);
+    updateItemQuantity(sku, quantity);
   }
 
   return (

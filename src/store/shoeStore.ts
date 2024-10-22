@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
 // Project files
-import addItem from "./actions/addItem";
 import type User from "types/User";
 import type CartItem from "types/CartItem";
-import removeItem from "./actions/removeItem";
+import addItem from "./actions/addItem";
+import updateItemQuantity from "./actions/removeItem";
 
 interface State {
   cart: CartItem[];
@@ -14,7 +14,7 @@ interface State {
 interface Action {
   // Cart
   addItem: (sku: string, id: string) => void;
-  removeItem: (sku: string, quantity: number) => void;
+  updateItemQuantity: (sku: string, quantity: number) => void;
   emptyCart: () => void;
 
   // User
@@ -34,8 +34,8 @@ const useShoeStore = create<State & Action>((set) => ({
   addItem: (sku, id) =>
     set((state) => ({ cart: addItem(state.cart, sku, id) })),
 
-  removeItem: (sku, quantity) =>
-    set((state) => ({ cart: removeItem(state.cart, sku, quantity) })),
+  updateItemQuantity: (sku, quantity) =>
+    set((state) => ({ cart: updateItemQuantity(state.cart, sku, quantity) })),
 
   emptyCart: () => set({ cart: [] }),
 

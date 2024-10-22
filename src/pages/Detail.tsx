@@ -11,7 +11,7 @@ import useShoeStore from "store/shoeStore";
 
 export default function Detail() {
   // Global state
-  const { addItem } = useShoeStore();
+  const addItem = useShoeStore((state) => state.addItem);
   const { id } = useParams();
   const navigate = useNavigate();
 

@@ -26,7 +26,7 @@ type Errors = {
 
 export default function Checkout() {
   // Global state
-  const { emptyCart } = useShoeStore();
+  const emptyCart = useShoeStore((state) => state.emptyCart);
 
   // Local state
   const [address, setAddress] = useState(emptyAddress);
