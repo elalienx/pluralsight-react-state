@@ -1,5 +1,5 @@
 // Node modules
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // Project files
 import { useCart } from "state/cartContext";
