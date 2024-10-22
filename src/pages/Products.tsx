@@ -17,16 +17,6 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Safeguards
-  if (error) throw error;
-  if (loading) return <Spinner />;
-  if (!products || products.length === 0) return <PageNotFound />;
-
-  // Properties
-  const filteredProducts = size
-    ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
-    : products;
-
   // Methods
   useEffect(() => {
     async function fetchData() {
@@ -59,6 +49,16 @@ export default function Products() {
       </div>
     );
   }
+
+  // Safeguards
+  if (error) throw error;
+  if (loading) return <Spinner />;
+  if (!products || products.length === 0) return <PageNotFound />;
+
+  // Properties
+  const filteredProducts = size
+    ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
+    : products;
 
   return (
     <>

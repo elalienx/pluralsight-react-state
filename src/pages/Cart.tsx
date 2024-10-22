@@ -18,10 +18,6 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Safeguards
-  if (loading || !products) return <Spinner />;
-  if (error) throw error;
-
   // Properties
   const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -87,6 +83,10 @@ export default function Cart() {
       </li>
     );
   }
+
+  // Safeguards
+  if (loading || !products) return <Spinner />;
+  if (error) throw error;
 
   return (
     <section id="cart">
