@@ -41,6 +41,22 @@ export default function Detail() {
     fetchData();
   }, [id]);
 
+  function onAddToCart(id: string) {
+    if (!sku) return alert("Select size.");
+
+    setCart((cart) => {
+      const itemInCart = cart.find((i) => i.sku === sku);
+
+      return itemInCart
+        ? cart.map((i) =>
+            i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i
+          )
+        : [...cart, { id: parseInt(id), sku, quantity: 1 }];
+    });
+
+    toast("Added to cart", { icon: "🛒" });
+  }
+
   // Safeguards
   if (loading) return <Spinner />;
   if (!product || !id) return <PageNotFound />;
@@ -54,9 +70,9 @@ export default function Detail() {
 
       <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
         <option value="">What size?</option>
-        {product.skus.map((s) => (
-          <option key={s.sku} value={s.sku}>
-            {s.size}
+        {product.skus.map((item) => (
+          <option key={item.sku} value={item.sku}>
+            {item.size}
           </option>
         ))}
       </select>
@@ -65,18 +81,7 @@ export default function Detail() {
         <button
           disabled={!sku}
           className="btn btn-primary"
-          onClick={() => {
-            if (!sku) return alert("Select size.");
-            setCart((cart) => {
-              const itemInCart = cart.find((i) => i.sku === sku);
-              return itemInCart
-                ? cart.map((i) =>
-                    i.sku === sku ? { ...i, quantity: i.quantity + 1 } : i
-                  )
-                : [...cart, { id: parseInt(id), sku, quantity: 1 }];
-            });
-            toast("Added to cart", { icon: "🛒" });
-          }}
+          onClick={() => onAddToCart(id)}
         >
           Add to cart
         </button>

@@ -59,10 +59,14 @@ export default function Cart() {
       </h1>
       <ul>
         {cart.map((cartItem) => {
-          const product = products.find((p) => p.id === cartItem.id);
+          const product = products.find((item) => item.id === cartItem.id);
+
+          // Safeguard
           if (!product) throw new Error("Product not found");
 
-          return <ItemCart cartItem={cartItem} product={product} />;
+          return (
+            <ItemCart key={cartItem.id} cartItem={cartItem} product={product} />
+          );
         })}
       </ul>
       {cart.length > 0 && (

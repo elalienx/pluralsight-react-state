@@ -1,3 +1,6 @@
+// Node modules
+import { ChangeEvent } from "react";
+
 // Project files
 import { useCart } from "state/cartContext";
 import type CartItem from "types/CartItem";
@@ -21,6 +24,17 @@ export default function ItemCart({ cartItem, product }: Props) {
   // Safeguards
   if (!matchingSku) throw new Error("Sku not found");
 
+  // Methods
+  function onChange(event: ChangeEvent<HTMLSelectElement>) {
+    const quantity = parseInt(event.target.value);
+
+    setCart((cart) =>
+      quantity === 0
+        ? cart.filter((item) => item.sku !== sku)
+        : cart.map((item) => (item.sku === sku ? { ...item, quantity } : item))
+    );
+  }
+
   return (
     <li key={sku} className="cart-item">
       <img src={`/images/${image}`} alt={name} />
@@ -31,15 +45,7 @@ export default function ItemCart({ cartItem, product }: Props) {
         <p>
           <select
             aria-label={`Select quantity for ${name} size ${matchingSku.size}`}
-            onChange={(e) => {
-              const quantity = parseInt(e.target.value);
-
-              setCart((cart) =>
-                quantity === 0
-                  ? cart.filter((i) => i.sku !== sku)
-                  : cart.map((i) => (i.sku === sku ? { ...i, quantity } : i))
-              );
-            }}
+            onChange={(event) => onChange(event)}
             value={quantity}
           >
             <option value="0">Remove</option>

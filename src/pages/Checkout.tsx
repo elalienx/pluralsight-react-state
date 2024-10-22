@@ -67,13 +67,14 @@ export default function Checkout() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("Submitting");
+
     if (isValid) {
       try {
         await saveShippingAddress(address);
         setCart([]);
         setStatus("Completed");
-      } catch (e) {
-        setSaveError(e as Error);
+      } catch (error) {
+        setSaveError(error as Error);
       }
     } else {
       setStatus("Submitted");
