@@ -5,14 +5,13 @@ import toast from "react-hot-toast";
 
 // Project files
 import Spinner from "components/Spinner";
-import { useCart } from "state/cartContext";
 import PageNotFound from "pages/PageNotFound";
-import addItem from "store/actions/addItem";
 import type Product from "types/Product";
+import useShoeStore from "store/shoeStore";
 
 export default function Detail() {
   // Global state
-  const { setCart } = useCart();
+  const { addItem } = useShoeStore();
   const { id } = useParams();
 
   // Local state
@@ -46,7 +45,7 @@ export default function Detail() {
     // Safeguard
     if (!sku) return alert("Select size.");
 
-    setCart((cart) => addItem(cart, sku, id)); // Refactor to Zustard 🐻🍯
+    addItem(sku, id);
     toast("Added to cart", { icon: "🛒" });
   }
 

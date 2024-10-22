@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 // Project files
 import Spinner from "components/Spinner";
 import ItemCart from "components/ItemCart";
-import { useCart } from "state/cartContext";
+import useShoeStore from "store/shoeStore";
 import type Product from "types/Product";
 
 export default function Cart() {
   // Global state
-  const { cart } = useCart();
+  const cart = useShoeStore((state) => state.cart);
   const navigate = useNavigate();
 
   // Local state

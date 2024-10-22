@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 // Project files
-import { useCart } from "state/cartContext";
 import { saveShippingAddress } from "services/shippingService";
+import useShoeStore from "store/shoeStore";
 import type ShippingAddress from "types/ShippingAddress";
 
 type Status = "Idle" | "Submitted" | "Submitting" | "Completed";
@@ -26,7 +26,7 @@ type Errors = {
 
 export default function Checkout() {
   // Global state
-  const { setCart } = useCart();
+  const { emptyCart } = useShoeStore();
 
   // Local state
   const [address, setAddress] = useState(emptyAddress);
@@ -71,7 +71,7 @@ export default function Checkout() {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        setCart([]);
+        emptyCart();
         setStatus("Completed");
       } catch (error) {
         setSaveError(error as Error);

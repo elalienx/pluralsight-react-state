@@ -2,8 +2,7 @@
 import { ChangeEvent } from "react";
 
 // Project files
-import { useCart } from "state/cartContext";
-import removeItem from "store/actions/removeItem";
+import useShoeStore from "store/shoeStore";
 import type CartItem from "types/CartItem";
 import type Product from "types/Product";
 
@@ -17,7 +16,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   const { name, image, skus, price } = product;
 
   // Global state
-  const { setCart } = useCart();
+  const { removeItem } = useShoeStore();
 
   // Properties
   const matchingSku = skus.find((s) => s.sku === sku);
@@ -29,7 +28,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
     const quantity = parseInt(event.target.value);
 
-    setCart((cart) => removeItem(cart, sku, quantity)); // Refactor to Zustard 🐻🍯
+    removeItem(sku, quantity);
   }
 
   return (

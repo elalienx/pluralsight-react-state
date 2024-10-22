@@ -2,13 +2,12 @@
 import { NavLink } from "react-router-dom";
 
 // Project files
-import { useCart } from "state/cartContext";
 import useShoeStore from "store/shoeStore";
 import type User from "types/User";
 
 export default function Header() {
   // Global state
-  const { cart } = useCart();
+  const cart = useShoeStore((state) => state.cart);
   const { user, logIn, logOut } = useShoeStore();
 
   // Properties
