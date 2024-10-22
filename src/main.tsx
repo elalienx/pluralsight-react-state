@@ -6,16 +6,13 @@ import { Toaster } from "react-hot-toast";
 
 // Project files
 import Routes from "./Routes";
-import { CartProvider } from "state/cartContext";
 import "./main.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ErrorBoundary fallback={<h1>Sorry, an error occurred.</h1>}>
-      <CartProvider>
-        <Toaster />
-        <Routes />
-      </CartProvider>
+      <Toaster />
+      <Routes />
     </ErrorBoundary>
   </React.StrictMode>
 );
