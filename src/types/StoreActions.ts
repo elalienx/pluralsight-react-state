@@ -3,7 +3,7 @@ import type User from "./User";
 
 export default interface StoreActions {
   // Cart
-  addItem: (sku: string, id: string) => void;
+  addItem: (id: number, sku: string) => void;
   updateItemQuantity: (sku: string, quantity: number) => void;
   emptyCart: () => void;
 

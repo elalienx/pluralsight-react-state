@@ -8,6 +8,7 @@
     "start-app": "cross-env VITE_APP_API_BASE_URL=http://localhost:3001/ vite --port 3000 --open --strictPort",
     "start-api": "json-server --port 3001 --watch db.json --delay 0",
     "build": "tsc && vite build",
+    "test": "vitest",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.4.5",
-    "vite": "^5.2.11"
+    "vite": "^5.2.11",
+    "vitest": "^2.1.3"
   }
 }

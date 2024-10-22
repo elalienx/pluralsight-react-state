@@ -17,8 +17,8 @@ const useShoeStore = create<State & Actions>()(
       user: null,
 
       // Actions
-      addItem: (sku, id) =>
-        set((state) => ({ cart: addItem(state.cart, sku, id) })),
+      addItem: (id, sku) =>
+        set((state) => ({ cart: addItem(state.cart, id, sku) })),
 
       updateItemQuantity: (sku, quantity) =>
         set((state) => ({ cart: updateItem(state.cart, sku, quantity) })),

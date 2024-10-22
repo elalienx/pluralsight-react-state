@@ -1,7 +1,7 @@
 // Project files
 import type CartItem from "types/CartItem";
 
-export default function addItem(cart: CartItem[], sku: string, id: string) {
+export default function addItem(cart: CartItem[], id: number, sku: string) {
   const itemExistInCart = cart.find((item) => item.sku === sku);
 
   if (itemExistInCart) {
@@ -10,5 +10,5 @@ export default function addItem(cart: CartItem[], sku: string, id: string) {
     );
   }
 
-  return [...cart, { id: parseInt(id), sku, quantity: 1 }];
+  return [...cart, { id, sku, quantity: 1 }];
 }

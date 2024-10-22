@@ -42,11 +42,11 @@ export default function Detail() {
     fetchData();
   }, [id]);
 
-  function onAddToCart(id: string) {
+  function onAddToCart(productId: number) {
     // Safeguard
     if (!sku) return alert("Select size.");
 
-    addItem(sku, id);
+    addItem(productId, sku);
     toast("Added to cart", { icon: "🛒" });
     navigate("/shoes");
   }
@@ -55,6 +55,9 @@ export default function Detail() {
   if (loading) return <Spinner />;
   if (!product || !id) return <PageNotFound />;
   if (error) throw error;
+
+  // Properties
+  const productId = parseInt(id);
 
   return (
     <div id="detail">
@@ -75,7 +78,7 @@ export default function Detail() {
         <button
           disabled={!sku}
           className="btn btn-primary"
-          onClick={() => onAddToCart(id)}
+          onClick={() => onAddToCart(productId)}
         >
           Add to cart
         </button>
