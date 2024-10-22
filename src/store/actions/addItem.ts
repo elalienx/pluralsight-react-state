@@ -1,7 +1,7 @@
 // Project files
 import type CartItem from "types/CartItem";
 
-export default function addToCart(cart: CartItem[], sku: string, id: string) {
+export default function addItem(cart: CartItem[], sku: string, id: string) {
   const itemExistInCart = cart.find((item) => item.sku === sku);
 
   if (itemExistInCart) {

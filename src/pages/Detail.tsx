@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 import Spinner from "components/Spinner";
 import { useCart } from "state/cartContext";
 import PageNotFound from "pages/PageNotFound";
+import addItem from "store/actions/addItem";
 import type Product from "types/Product";
-import addToCart from "store/actions/addToCart";
 
 export default function Detail() {
   // Global state
@@ -46,7 +46,7 @@ export default function Detail() {
     // Safeguard
     if (!sku) return alert("Select size.");
 
-    setCart((cart) => addToCart(cart, sku, id));
+    setCart((cart) => addItem(cart, sku, id)); // Refactor to Zustard 🐻🍯
     toast("Added to cart", { icon: "🛒" });
   }
 

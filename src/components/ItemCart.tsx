@@ -3,6 +3,7 @@ import { ChangeEvent } from "react";
 
 // Project files
 import { useCart } from "state/cartContext";
+import removeItem from "store/actions/removeItem";
 import type CartItem from "types/CartItem";
 import type Product from "types/Product";
 
@@ -28,11 +29,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
     const quantity = parseInt(event.target.value);
 
-    setCart((cart) =>
-      quantity === 0
-        ? cart.filter((item) => item.sku !== sku)
-        : cart.map((item) => (item.sku === sku ? { ...item, quantity } : item))
-    );
+    setCart((cart) => removeItem(cart, sku, quantity)); // Refactor to Zustard 🐻🍯
   }
 
   return (
