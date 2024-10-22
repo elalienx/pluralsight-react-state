@@ -25,9 +25,7 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link to="/">
-              <img alt="Carved Rock Fitness" src="/images/logo.png" />
-            </Link>
+            <img alt="Carved Rock Fitness" src="/images/logo.png" />
           </li>
           <li>
             <NavLink to="/shoes">Shoes</NavLink>
