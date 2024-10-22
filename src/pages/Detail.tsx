@@ -20,11 +20,6 @@ export default function Detail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Safeguards
-  if (loading) return <Spinner />;
-  if (!product || !id) return <PageNotFound />;
-  if (error) throw error;
-
   // Methods
   useEffect(() => {
     async function fetchData() {
@@ -45,6 +40,11 @@ export default function Detail() {
     }
     fetchData();
   }, [id]);
+
+  // Safeguards
+  if (loading) return <Spinner />;
+  if (!product || !id) return <PageNotFound />;
+  if (error) throw error;
 
   return (
     <div id="detail">

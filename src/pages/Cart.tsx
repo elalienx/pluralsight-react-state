@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 // Project files
 import Spinner from "components/Spinner";
+import ItemCart from "components/ItemCart";
 import { useCart } from "state/cartContext";
-import type CartItem from "types/CartItem";
 import type Product from "types/Product";
 
 export default function Cart() {
   // Global state
-  const { cart, setCart } = useCart();
+  const { cart } = useCart();
   const navigate = useNavigate();
 
   // Local state
@@ -25,15 +25,16 @@ export default function Cart() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const url =
-          import.meta.env.VITE_APP_API_BASE_URL +
-          "products?" +
-          cart.map(({ id }) => "id=" + id).join("&");
+        const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+        const productList = cart.map(({ id }) => "id=" + id).join("&");
+        const url = baseURL + "products?" + productList;
         const data = await fetch(url);
-        if (!data.ok) {
-          throw new Error(`Product not found: ${data.status}`);
-        }
+
+        // Safeguard
+        if (!data.ok) throw new Error(`Product not found: ${data.status}`);
+
         const products = await data.json();
+
         setProducts(products);
       } catch (error) {
         setError(error as Error);
@@ -41,48 +42,9 @@ export default function Cart() {
         setLoading(false);
       }
     }
+
     fetchData();
   }, []);
-
-  function renderCartItem(cartItem: CartItem, product: Product) {
-    const { sku, quantity } = cartItem;
-    const { name, image, skus, price } = product;
-    const matchingSku = skus.find((s) => s.sku === sku);
-    if (!matchingSku) throw new Error("Sku not found");
-    const { size } = matchingSku;
-
-    return (
-      <li key={sku} className="cart-item">
-        <img src={`/images/${image}`} alt={name} />
-        <div>
-          <h3>{name}</h3>
-          <p>${price}</p>
-          <p>Size: {size}</p>
-          <p>
-            <select
-              aria-label={`Select quantity for ${name} size ${size}`}
-              onChange={(e) => {
-                const quantity = parseInt(e.target.value);
-                setCart((cart) =>
-                  quantity === 0
-                    ? cart.filter((i) => i.sku !== sku)
-                    : cart.map((i) => (i.sku === sku ? { ...i, quantity } : i))
-                );
-              }}
-              value={quantity}
-            >
-              <option value="0">Remove</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </p>
-        </div>
-      </li>
-    );
-  }
 
   // Safeguards
   if (loading || !products) return <Spinner />;
@@ -99,7 +61,8 @@ export default function Cart() {
         {cart.map((cartItem) => {
           const product = products.find((p) => p.id === cartItem.id);
           if (!product) throw new Error("Product not found");
-          return renderCartItem(cartItem, product);
+
+          return <ItemCart cartItem={cartItem} product={product} />;
         })}
       </ul>
       {cart.length > 0 && (
