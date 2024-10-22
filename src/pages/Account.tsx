@@ -3,7 +3,8 @@ import useShoeStore from "store/shoeStore";
 
 export function Account() {
   // Global state
-  const { user } = useShoeStore();
+  // const { user } = useShoeStore(); // short syntax: but will re-render if any other state in the store changes.
+  const user = useShoeStore((state) => state.user); // performance syntax by referencing only this state in the whole store.
 
   return (
     <>
