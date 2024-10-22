@@ -10,13 +10,22 @@ import PageNotFound from "pages/PageNotFound";
 import type Product from "types/Product";
 
 export default function Detail() {
+  // Global state
   const { setCart } = useCart();
   const { id } = useParams();
+
+  // Local state
   const [sku, setSku] = useState("");
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // Safeguards
+  if (loading) return <Spinner />;
+  if (!product || !id) return <PageNotFound />;
+  if (error) throw error;
+
+  // Methods
   useEffect(() => {
     async function fetchData() {
       try {
@@ -36,10 +45,6 @@ export default function Detail() {
     }
     fetchData();
   }, [id]);
-
-  if (loading) return <Spinner />;
-  if (!product || !id) return <PageNotFound />;
-  if (error) throw error;
 
   return (
     <div id="detail">

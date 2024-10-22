@@ -2,6 +2,7 @@
 import { useUser } from "state/userContext";
 
 export function Account() {
+  // Global state
   const { user } = useUser();
 
   return (

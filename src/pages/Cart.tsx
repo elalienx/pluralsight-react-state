@@ -9,13 +9,23 @@ import type CartItem from "types/CartItem";
 import type Product from "types/Product";
 
 export default function Cart() {
+  // Global state
   const { cart, setCart } = useCart();
   const navigate = useNavigate();
 
+  // Local state
   const [products, setProducts] = useState<Product[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // Safeguards
+  if (loading || !products) return <Spinner />;
+  if (error) throw error;
+
+  // Properties
+  const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // Methods
   useEffect(() => {
     async function fetchData() {
       try {
@@ -37,11 +47,6 @@ export default function Cart() {
     }
     fetchData();
   }, []);
-
-  if (loading || !products) return <Spinner />;
-  if (error) throw error;
-
-  const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
   function renderCartItem(cartItem: CartItem, product: Product) {
     const { sku, quantity } = cartItem;

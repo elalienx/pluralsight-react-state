@@ -25,16 +25,24 @@ type Errors = {
 };
 
 export default function Checkout() {
+  // Global state
   const { setCart } = useCart();
+
+  // Local state
   const [address, setAddress] = useState(emptyAddress);
   const [status, setStatus] = useState<Status>("Idle");
   const [saveError, setSaveError] = useState<Error | null>(null);
   const [touched, setTouched] = useState(initialTouched);
 
-  // Derived state
+  // Safeguards
+  if (saveError) throw saveError;
+  if (status === "Completed") return <h1>Thanks for shopping!</h1>;
+
+  // Properties
   const errors = getErrors(address);
   const isValid = Object.keys(errors).length === 0;
 
+  // Methods
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
@@ -77,11 +85,6 @@ export default function Checkout() {
     if (!address.city) errors.city = "City is required";
     if (!address.country) errors.country = "Country is required";
     return errors;
-  }
-
-  if (saveError) throw saveError;
-  if (status === "Completed") {
-    return <h1>Thanks for shopping!</h1>;
   }
 
   return (
