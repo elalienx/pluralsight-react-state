@@ -1,9 +1,10 @@
 // Node modules
+import cartAtom from "atoms/cartAtom";
 import { useState } from "react";
+import { useAtom } from "jotai";
 
 // Project files
 import { saveShippingAddress } from "services/shippingService";
-import useShoeStore from "store/shoeStore";
 import type ShippingAddress from "types/ShippingAddress";
 
 type Status = "Idle" | "Submitted" | "Submitting" | "Completed";
@@ -26,7 +27,7 @@ type Errors = {
 
 export default function Checkout() {
   // Global state
-  const emptyCart = useShoeStore((state) => state.emptyCart);
+  const [, setCart] = useAtom(cartAtom);
 
   // Local state
   const [address, setAddress] = useState(emptyAddress);
@@ -71,7 +72,7 @@ export default function Checkout() {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        emptyCart();
+        setCart([]);
         setStatus("Completed");
       } catch (error) {
         setSaveError(error as Error);

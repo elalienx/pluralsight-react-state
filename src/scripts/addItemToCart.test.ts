@@ -2,7 +2,7 @@
 import { expect, test } from "vitest";
 
 // Project files
-import addItem from "./addItem";
+import addItemToCart from "./addItemToCart";
 import type CartItem from "types/CartItem";
 
 test("Add item to cart if does not exist in cart", () => {
@@ -13,7 +13,7 @@ test("Add item to cart if does not exist in cart", () => {
   const result: CartItem[] = [{ id: 1, sku: "17", quantity: 1 }]; // SEGA Saturn, Skeleton Gray, x1
 
   // Act
-  const test = addItem(cart, id, sku);
+  const test = addItemToCart(cart, id, sku);
 
   // Assert
   expect(test).toEqual(result);
@@ -34,7 +34,7 @@ test("Add item to the end of the cart on a full cart", () => {
   ];
 
   // Act
-  const test = addItem(cart, id, sku);
+  const test = addItemToCart(cart, id, sku);
 
   // Assert
   expect(test).toEqual(result);
@@ -48,7 +48,7 @@ test("Update item in cart if already exist", () => {
   const result: CartItem[] = [{ id: 1, sku: "17", quantity: 6 }]; // SEGA Saturn, Skeleton Gray, x6 (six after update)
 
   // Act
-  const test = addItem(cart, id, sku);
+  const test = addItemToCart(cart, id, sku);
 
   // Assert
   expect(test).toEqual(result);

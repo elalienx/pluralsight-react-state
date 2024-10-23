@@ -1,16 +1,17 @@
 // Node modules
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
 
 // Project files
+import cartAtom from "atoms/cartAtom";
 import Spinner from "components/Spinner";
 import ItemCart from "components/ItemCart";
-import useShoeStore from "store/shoeStore";
 import type Product from "types/Product";
 
 export default function Cart() {
   // Global state
-  const cart = useShoeStore((state) => state.cart);
+  const [cart] = useAtom(cartAtom);
   const navigate = useNavigate();
 
   // Local state

@@ -3,13 +3,13 @@ import { useAtom } from "jotai";
 import { NavLink } from "react-router-dom";
 
 // Project files
-import useShoeStore from "store/shoeStore"; // Refactor remove
+import cartAtom from "atoms/cartAtom";
 import userAtom from "atoms/userAtom";
 import type User from "types/User";
 
 export default function Header() {
   // Global state
-  const cart = useShoeStore((state) => state.cart);
+  const [cart] = useAtom(cartAtom);
   const [user, setUser] = useAtom(userAtom);
 
   // Properties
