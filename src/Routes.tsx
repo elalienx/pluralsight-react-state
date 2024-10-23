@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 
 // Project files
-import Faker from "components/Faker.tsx";
 import Products from "pages/Products.tsx";
 import Detail from "pages/Detail.tsx";
 import Cart from "pages/Cart.tsx";
@@ -34,7 +33,6 @@ export default function App() {
         />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/faker" element={<Faker />} />
       </Route>
     )
   );
