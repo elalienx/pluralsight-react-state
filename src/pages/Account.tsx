@@ -1,11 +1,12 @@
+// Node modules
+import userAtom from "atoms/userAtom";
+
 // Project files
-import useShoeStore from "store/shoeStore";
+import { useAtom } from "jotai";
 
 export function Account() {
   // Global state
-  // const { user } = useShoeStore(); // short syntax: but will re-render if any other state in the store changes.
-  const user = useShoeStore((state) => state.user); // performance syntax by referencing only this state in the whole store.
-
+  const [user] = useAtom(userAtom);
   return (
     <>
       <h1>Account</h1>

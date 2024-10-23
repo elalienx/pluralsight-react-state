@@ -12,11 +12,8 @@ const persistOptions = { name: "zustand-store" };
 const useShoeStore = create<State & Actions>()(
   persist(
     (set) => ({
-      // State
       cart: [],
-      user: null,
 
-      // Actions
       addItem: (id, sku) =>
         set((state) => ({ cart: addItem(state.cart, id, sku) })),
 
@@ -24,10 +21,6 @@ const useShoeStore = create<State & Actions>()(
         set((state) => ({ cart: updateItem(state.cart, sku, quantity) })),
 
       emptyCart: () => set({ cart: [] }),
-
-      logIn: (user) => set({ user }),
-
-      logOut: () => set({ user: null }),
     }),
     persistOptions
   )

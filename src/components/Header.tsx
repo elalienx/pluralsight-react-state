@@ -1,14 +1,16 @@
 // Node modules
+import { useAtom } from "jotai";
 import { NavLink } from "react-router-dom";
 
 // Project files
-import useShoeStore from "store/shoeStore";
+import useShoeStore from "store/shoeStore"; // Refactor remove
+import userAtom from "atoms/userAtom";
 import type User from "types/User";
 
 export default function Header() {
   // Global state
   const cart = useShoeStore((state) => state.cart);
-  const { user, logIn, logOut } = useShoeStore();
+  const [user, setUser] = useAtom(userAtom);
 
   // Properties
   const fakeUser: User = { id: 1, email: "cory@example.com" };
@@ -16,8 +18,8 @@ export default function Header() {
 
   // Components
   const AccountLink = <NavLink to="/account">Account</NavLink>;
-  const LogInButton = <button onClick={() => logIn(fakeUser)}>Log in</button>;
-  const LogOutButton = <button onClick={() => logOut()}>Log out</button>;
+  const LogInButton = <button onClick={() => setUser(fakeUser)}>Log in</button>;
+  const LogOutButton = <button onClick={() => setUser(null)}>Log out</button>;
 
   return (
     <header>
