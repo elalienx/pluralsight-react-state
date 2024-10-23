@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import type Product from "types/Product";
 
 export default function Faker() {
+  // Methods
   function generateFakeData() {
     const products: Product[] = [];
 
@@ -27,7 +28,8 @@ export default function Faker() {
     return products;
   }
 
-  const fakeData = generateFakeData();
+  const fakeData: Product[] = generateFakeData();
+
   return (
     <>
       <h1>Fake products data</h1>
