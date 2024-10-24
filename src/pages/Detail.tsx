@@ -19,7 +19,7 @@ export default function Detail() {
   const navigate = useNavigate();
 
   // Local state
-  const { data, isLoading, error } = useGetProductById(id);
+  const { data, isLoading } = useGetProductById(id);
   const [sku, setSku] = useState("");
 
   // Properties
@@ -42,7 +42,6 @@ export default function Detail() {
   // Safeguards
   if (isLoading) return <Spinner />;
   if (!data || !id) return <PageNotFound />;
-  if (error) throw error;
 
   return (
     <div id="detail">
