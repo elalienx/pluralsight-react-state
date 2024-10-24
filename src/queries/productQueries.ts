@@ -1,9 +1,8 @@
 // Node modules
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function useGetProductById(id: string | undefined) {
-  return useQuery({
-    enabled: !!id,
+  return useSuspenseQuery({
     queryKey: ["product", id],
     queryFn: async () => {
       // Properties

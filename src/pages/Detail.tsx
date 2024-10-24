@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 
 // Project files
 import cartAtom from "atoms/cartAtom";
-import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
 import addItemToCart from "scripts/addItemToCart";
 import Product from "types/Product";
@@ -19,7 +18,7 @@ export default function Detail() {
   const navigate = useNavigate();
 
   // Local state
-  const { data, isLoading } = useGetProductById(id);
+  const { data } = useGetProductById(id);
   const [sku, setSku] = useState("");
 
   // Properties
@@ -40,7 +39,6 @@ export default function Detail() {
   }
 
   // Safeguards
-  if (isLoading) return <Spinner />;
   if (!data || !id) return <PageNotFound />;
 
   return (
