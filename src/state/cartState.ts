@@ -1,5 +1,5 @@
 // Node modules
-import { proxy } from "valtio";
+import { proxy, subscribe } from "valtio";
 
 // Project files
 import CartItem from "types/CartItem";
@@ -12,9 +12,18 @@ interface CartState {
 }
 
 // Properties
-export const cartState = proxy<CartState>({ cart: [] });
+const storageKey = "valtio-cart";
+const initialState: CartState = localStorage.getItem(storageKey)
+  ? JSON.parse(localStorage.getItem(storageKey)!)
+  : { cart: [] };
+
+export const cartState = proxy<CartState>(initialState);
 
 // Methods
+subscribe(cartState, () => {
+  localStorage.setItem(storageKey, JSON.stringify(cartState));
+});
+
 export function addItem(cart: CartItem[], id: number, sku: string) {
   cartState.cart = addItemToCart(cart, id, sku);
 }
