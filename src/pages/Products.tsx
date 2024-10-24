@@ -1,6 +1,7 @@
 // Node modules
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 // Project files
 import Spinner from "components/Spinner";
@@ -12,32 +13,22 @@ export default function Products() {
   const { category } = useParams();
 
   // Local state
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["product", category],
+    queryFn: async () => {
+      // Properties
+      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+      const data = await fetch(baseURL + "products");
+
+      // Safeguards
+      if (!data.ok) throw new Error(`Products not found: ${data.status}`);
+
+      return data.json();
+    },
+  });
   const [size, setSize] = useState("");
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
 
   // Methods
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetch(
-          import.meta.env.VITE_APP_API_BASE_URL + "products"
-        );
-        if (!data.ok) {
-          throw new Error(`Product not found: ${data.status}`);
-        }
-        const products = await data.json();
-        setProducts(products);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
-
   function renderProduct(p: Product) {
     return (
       <div key={p.id} className="product">
@@ -51,11 +42,12 @@ export default function Products() {
   }
 
   // Safeguards
+  if (isLoading) return <Spinner />;
+  if (!data || data.length === 0) return <PageNotFound />;
   if (error) throw error;
-  if (loading) return <Spinner />;
-  if (!products || products.length === 0) return <PageNotFound />;
 
   // Properties
+  const products: Product[] = data;
   const filteredProducts = size
     ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
     : products;

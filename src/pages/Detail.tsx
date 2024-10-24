@@ -24,7 +24,7 @@ export default function Detail() {
     queryFn: async () => {
       // Properties
       const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-      const data = await fetch(`${baseURL}products/${id}`);
+      const data = await fetch(baseURL + "products/" + id);
 
       // Safeguards
       if (!data.ok) throw new Error(`Product not found: ${data.status}`);
@@ -34,6 +34,7 @@ export default function Detail() {
   });
   const [sku, setSku] = useState("");
 
+  // Methods
   function onAddToCart(productId: number) {
     // Safeguard
     if (!sku) return alert("Select size.");
