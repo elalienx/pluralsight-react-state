@@ -1,6 +1,7 @@
 // Node modules
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import toast from "react-hot-toast";
 
@@ -9,7 +10,7 @@ import cartAtom from "atoms/cartAtom";
 import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
 import addItemToCart from "scripts/addItemToCart";
-import type Product from "types/Product";
+import Product from "types/Product";
 
 export default function Detail() {
   // Global state
@@ -18,31 +19,20 @@ export default function Detail() {
   const navigate = useNavigate();
 
   // Local state
-  const [sku, setSku] = useState("");
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["products", id],
+    queryFn: async () => {
+      // Properties
+      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+      const data = await fetch(`${baseURL}products/${id}`);
 
-  // Methods
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetch(
-          import.meta.env.VITE_APP_API_BASE_URL + `products/${id}`
-        );
-        if (!data.ok) {
-          throw new Error(`Product not found: ${data.status}`);
-        }
-        const product = await data.json();
-        setProduct(product);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [id]);
+      // Safeguards
+      if (!data.ok) throw new Error(`Product not found: ${data.status}`);
+
+      return data.json();
+    },
+  });
+  const [sku, setSku] = useState("");
 
   function onAddToCart(productId: number) {
     // Safeguard
@@ -57,11 +47,12 @@ export default function Detail() {
   }
 
   // Safeguards
-  if (loading) return <Spinner />;
-  if (!product || !id) return <PageNotFound />;
+  if (isLoading) return <Spinner />;
+  if (!data || !id) return <PageNotFound />;
   if (error) throw error;
 
   // Properties
+  const product: Product = data;
   const productId = parseInt(id);
 
   return (
