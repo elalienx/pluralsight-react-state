@@ -12,13 +12,17 @@ interface CartState {
 }
 
 // Properties
-export const userState = proxy<CartState>({ cart: [] });
+export const cartState = proxy<CartState>({ cart: [] });
 
 // Methods
 export function addItem(cart: CartItem[], id: number, sku: string) {
-  userState.cart = addItemToCart(cart, id, sku);
+  cartState.cart = addItemToCart(cart, id, sku);
 }
 
 export function updateItem(cart: CartItem[], sku: string, quantity: number) {
-  userState.cart = updateItemQuantity(cart, sku, quantity);
+  cartState.cart = updateItemQuantity(cart, sku, quantity);
+}
+
+export function emptyCart() {
+  cartState.cart = [];
 }

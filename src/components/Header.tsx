@@ -1,16 +1,15 @@
 // Node modules
-import { useAtom } from "jotai";
 import { useSnapshot } from "valtio";
 import { NavLink } from "react-router-dom";
 
 // Project files
-import cartAtom from "atoms/cartAtom";
 import type User from "types/User";
 import { logIn, logOut, userState } from "state/userState";
+import { cartState } from "state/cartState";
 
 export default function Header() {
   // Global state
-  const [cart] = useAtom(cartAtom);
+  const { cart } = useSnapshot(cartState);
   const { user } = useSnapshot(userState);
 
   // Properties

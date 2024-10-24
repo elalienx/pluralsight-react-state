@@ -1,19 +1,18 @@
 // Node modules
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import toast from "react-hot-toast";
 
 // Project files
-import cartAtom from "atoms/cartAtom";
 import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
-import addItemToCart from "state/actions/addItemToCart";
 import type Product from "types/Product";
+import { addItem, cartState } from "state/cartState";
 
 export default function Detail() {
   // Global state
-  const [cart, setCart] = useAtom(cartAtom);
+  const { cart } = useSnapshot(cartState);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -49,9 +48,9 @@ export default function Detail() {
     if (!sku) return alert("Select size.");
 
     // Properties
-    const newCart = addItemToCart(cart, productId, sku);
+    const newCart = [...cart];
 
-    setCart(newCart);
+    addItem(newCart, productId, sku);
     toast("Added to cart", { icon: "🛒" });
     navigate("/shoes");
   }

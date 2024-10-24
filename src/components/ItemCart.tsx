@@ -1,12 +1,11 @@
 // Node modules
 import { ChangeEvent } from "react";
-import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 
 // Project files
-import cartAtom from "atoms/cartAtom";
 import type CartItem from "types/CartItem";
 import type Product from "types/Product";
-import updateItemQuantity from "state/actions/updateItemQuantity";
+import { cartState, updateItem } from "state/cartState";
 
 interface Props {
   cartItem: CartItem;
@@ -18,7 +17,7 @@ export default function ItemCart({ cartItem, product }: Props) {
   const { name, image, skus, price } = product;
 
   // Global state
-  const [cart, setCart] = useAtom(cartAtom);
+  const { cart } = useSnapshot(cartState);
 
   // Properties
   const matchingSku = skus.find((s) => s.sku === sku);
@@ -28,10 +27,11 @@ export default function ItemCart({ cartItem, product }: Props) {
 
   // Methods
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
+    // Properties
     const quantity = parseInt(event.target.value);
-    const newCart = updateItemQuantity(cart, sku, quantity);
+    const newCart = [...cart];
 
-    setCart(newCart);
+    updateItem(newCart, sku, quantity);
   }
 
   return (

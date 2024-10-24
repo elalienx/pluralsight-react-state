@@ -1,17 +1,18 @@
 // Node modules
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 
 // Project files
-import cartAtom from "atoms/cartAtom";
+
 import Spinner from "components/Spinner";
 import ItemCart from "components/ItemCart";
 import type Product from "types/Product";
+import { cartState } from "state/cartState";
 
 export default function Cart() {
   // Global state
-  const [cart] = useAtom(cartAtom);
+  const { cart } = useSnapshot(cartState);
   const navigate = useNavigate();
 
   // Local state
