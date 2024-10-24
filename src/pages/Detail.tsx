@@ -1,7 +1,6 @@
 // Node modules
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 import toast from "react-hot-toast";
 
@@ -11,6 +10,7 @@ import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
 import addItemToCart from "scripts/addItemToCart";
 import Product from "types/Product";
+import { useGetProductById } from "queries/productQueries";
 
 export default function Detail() {
   // Global state
@@ -19,20 +19,12 @@ export default function Detail() {
   const navigate = useNavigate();
 
   // Local state
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["product", id],
-    queryFn: async () => {
-      // Properties
-      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-      const data = await fetch(baseURL + "products/" + id);
-
-      // Safeguards
-      if (!data.ok) throw new Error(`Product not found: ${data.status}`);
-
-      return data.json();
-    },
-  });
+  const { data, isLoading, error } = useGetProductById(id);
   const [sku, setSku] = useState("");
+
+  // Properties
+  const productId = parseInt(id!);
+  const product: Product = data;
 
   // Methods
   function onAddToCart(productId: number) {
@@ -51,10 +43,6 @@ export default function Detail() {
   if (isLoading) return <Spinner />;
   if (!data || !id) return <PageNotFound />;
   if (error) throw error;
-
-  // Properties
-  const product: Product = data;
-  const productId = parseInt(id);
 
   return (
     <div id="detail">
