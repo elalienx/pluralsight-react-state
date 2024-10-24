@@ -14,7 +14,7 @@ export default function Products() {
 
   // Local state
   const { data, isLoading, error } = useQuery({
-    queryKey: ["product", category],
+    queryKey: ["products", category],
     queryFn: async () => {
       // Properties
       const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
