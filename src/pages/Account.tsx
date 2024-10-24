@@ -1,8 +1,8 @@
 // Node modules
-import userAtom from "atoms/userAtom";
+import { useAtom } from "jotai";
 
 // Project files
-import { useAtom } from "jotai";
+import userAtom from "atoms/userAtom";
 
 export function Account() {
   // Global state
