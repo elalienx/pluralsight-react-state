@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import cartAtom from "atoms/cartAtom";
 import Spinner from "components/Spinner";
 import PageNotFound from "pages/PageNotFound";
-import addItemToCart from "scripts/addItemToCart";
+import addItemToCart from "state/actions/addItemToCart";
 import type Product from "types/Product";
 
 export default function Detail() {

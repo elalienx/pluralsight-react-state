@@ -6,7 +6,7 @@ import { useAtom } from "jotai";
 import cartAtom from "atoms/cartAtom";
 import type CartItem from "types/CartItem";
 import type Product from "types/Product";
-import updateItemQuantity from "scripts/updateItemQuantity";
+import updateItemQuantity from "state/actions/updateItemQuantity";
 
 interface Props {
   cartItem: CartItem;
