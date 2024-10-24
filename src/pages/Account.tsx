@@ -1,12 +1,15 @@
 // Node modules
-import userAtom from "atoms/userAtom";
+import { useSnapshot } from "valtio";
 
 // Project files
-import { useAtom } from "jotai";
+import { userState } from "state/userState";
 
 export function Account() {
   // Global state
-  const [user] = useAtom(userAtom);
+  const { user } = useSnapshot(userState);
+
+  // Components
+
   return (
     <>
       <h1>Account</h1>

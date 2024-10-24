@@ -1,25 +1,26 @@
 // Node modules
 import { useAtom } from "jotai";
+import { useSnapshot } from "valtio";
 import { NavLink } from "react-router-dom";
 
 // Project files
 import cartAtom from "atoms/cartAtom";
-import userAtom from "atoms/userAtom";
 import type User from "types/User";
+import { logIn, logOut, userState } from "state/userState";
 
 export default function Header() {
   // Global state
   const [cart] = useAtom(cartAtom);
-  const [user, setUser] = useAtom(userAtom);
+  const { user } = useSnapshot(userState);
 
   // Properties
-  const fakeUser: User = { id: 1, email: "cory@example.com" };
+  const demoUser: User = { id: 1, email: "cory@example.com" };
   const itemsInCart = cart.reduce((prev, acc) => prev + acc.quantity, 0);
 
   // Components
   const AccountLink = <NavLink to="/account">Account</NavLink>;
-  const LogInButton = <button onClick={() => setUser(fakeUser)}>Log in</button>;
-  const LogOutButton = <button onClick={() => setUser(null)}>Log out</button>;
+  const LogInButton = <button onClick={() => logIn(demoUser)}>Log in</button>;
+  const LogOutButton = <button onClick={() => logOut()}>Log out</button>;
 
   return (
     <header>
