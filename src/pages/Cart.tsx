@@ -1,6 +1,6 @@
 // Node modules
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
 
 // Project files
@@ -15,41 +15,28 @@ export default function Cart() {
   const navigate = useNavigate();
 
   // Local state
-  const [products, setProducts] = useState<Product[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cart"],
+    queryFn: async () => {
+      // Properties
+      const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
+      const productList = cart.map(({ id }) => "id=" + id).join("&");
+      const data = await fetch(baseURL + "products?" + productList);
 
-  // Properties
-  const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
+      // Safeguard
+      if (!data.ok) throw new Error(`Product not found: ${data.status}`);
 
-  // Methods
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const baseURL = import.meta.env.VITE_APP_API_BASE_URL;
-        const productList = cart.map(({ id }) => "id=" + id).join("&");
-        const url = baseURL + "products?" + productList;
-        const data = await fetch(url);
-
-        // Safeguard
-        if (!data.ok) throw new Error(`Product not found: ${data.status}`);
-
-        const products = await data.json();
-
-        setProducts(products);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
+      return data.json();
+    },
+  });
 
   // Safeguards
-  if (loading || !products) return <Spinner />;
+  if (isLoading || !data) return <Spinner />;
   if (error) throw error;
+
+  // Properties
+  const products: Product[] = data;
+  const numItemsInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <section id="cart">
