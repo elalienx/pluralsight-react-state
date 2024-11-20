@@ -1,7 +1,7 @@
 // Project files
 import { useUser } from "state/userContext";
 
-export function Account() {
+export default function Account() {
   // Global state
   const { user } = useUser();
 
