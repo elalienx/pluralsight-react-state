@@ -13,13 +13,13 @@ import Account from "pages/Account.tsx";
 import Cart from "pages/Cart.tsx";
 import Checkout from "pages/Checkout.tsx";
 import Detail from "pages/Detail.tsx";
+import Home from "pages/Home.tsx";
 import Products from "pages/Products.tsx";
 import { Layout } from "./Layout.tsx";
 import "./App.css";
 
 export default function App() {
   // Pages
-  const HomePage = <h1>Welcome to the store! Click on "shoes" to start</h1>;
   const DetailPage = (
     <Suspense fallback={<Spinner />}>
       <Detail />
@@ -32,7 +32,7 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={HomePage} />
+        <Route path="/" element={<Home />} />
         <Route path="/:category" element={<Products />} errorElement={ErrorPage}/>
         <Route path="/:category/:id" element={DetailPage} />
         <Route path="/cart" element={<Cart />} errorElement={ErrorPage} />
