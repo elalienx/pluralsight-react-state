@@ -20,7 +20,7 @@ export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
-        <Route path="/" element={<h1>Welcome to the store!</h1>} />
+        <Route path="/" element={<h1>Welcome to the store! Click on "shoes" to start</h1>} />
         <Route
           path="/:category"
           element={<Products />}
