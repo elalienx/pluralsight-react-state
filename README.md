@@ -15,8 +15,6 @@ This will start the app and the mock API server on [http://localhost:3000](http:
 
 Here’s the revised table with the cons listed as bullet points within the cells:
 
-Here’s the revised table with the cons listed as bullet points within the cells:
-
 Here’s a table summarizing the pros and cons of Zustand, Jotai, and Valtio:
 
 | Library | Pros ✅                                       | Cons ❌                                                                      |
