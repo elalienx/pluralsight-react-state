@@ -19,7 +19,7 @@ import "./App.css";
 
 export default function App() {
   // Pages
-  const HomePage = <h1>Welcome to the store!</h1>;
+  const HomePage = <h1>Welcome to the store! Click on "shoes" to start</h1>;
   const DetailPage = (
     <Suspense fallback={<Spinner />}>
       <Detail />
