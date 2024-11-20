@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 // Project files
 import { userState } from "state/userState";
 
-export function Account() {
+export default function Account() {
   // Global state
   const { user } = useSnapshot(userState);
 
