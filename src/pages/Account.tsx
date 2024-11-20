@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 // Project files
 import userAtom from "atoms/userAtom";
 
-export function Account() {
+export default function Account() {
   // Global state
   const [user] = useAtom(userAtom);
   return (
